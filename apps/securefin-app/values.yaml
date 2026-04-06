@@ -1,5 +1,5 @@
 image:
-  repository: <ACR_NAME>.azurecr.io/securefin-app
+  repository: acrsecurefindev.azurecr.io/securefin-app
   tag: "1.0.0"
   pullPolicy: IfNotPresent
 
@@ -24,6 +24,9 @@ logLevel: info
 serviceAccount:
   create: true
   name: app-sa
+
+workloadIdentity:
+  clientId: ""  # Set per-environment — the Azure AD app client ID for Workload Identity
 
 autoscaling:
   enabled: false

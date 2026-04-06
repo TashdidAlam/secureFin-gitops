@@ -26,9 +26,9 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/TashdidAlam/secureFin-gitops
+        repoURL: https://github.com/TashdidAlam/securefin-gitops.git
         targetRevision: "{{branch}}"
-        path: base/securefin-app
+        path: apps/securefin-app
         helm:
           valueFiles:
             - "../../environments/{{env}}/values.yaml"

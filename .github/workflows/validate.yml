@@ -15,7 +15,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
@@ -23,25 +23,25 @@ jobs:
           version: "3.14.x"
 
       - name: Helm lint
-        run: helm lint base/securefin-app
+        run: helm lint apps/securefin-app
 
       - name: Helm template dry-run (dev)
         run: |
-          helm template securefin-dev base/securefin-app \
+          helm template securefin-dev apps/securefin-app \
             --namespace dev \
             --values environments/dev/values.yaml \
             --debug
 
       - name: Helm template dry-run (staging)
         run: |
-          helm template securefin-staging base/securefin-app \
+          helm template securefin-staging apps/securefin-app \
             --namespace staging \
             --values environments/staging/values.yaml \
             --debug
 
       - name: Helm template dry-run (production)
         run: |
-          helm template securefin-production base/securefin-app \
+          helm template securefin-production apps/securefin-app \
             --namespace production \
             --values environments/production/values.yaml \
             --debug

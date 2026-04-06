@@ -1,9 +1,21 @@
 image:
+  repository: acrsecurefindev.azurecr.io/securefin-app
   tag: "1.0.0"
 
 replicaCount: 1
 
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
 logLevel: debug
+
+workloadIdentity:
+  clientId: "93ec5cf8-4518-461f-96a6-b44fccf4a456"
 
 autoscaling:
   enabled: false
