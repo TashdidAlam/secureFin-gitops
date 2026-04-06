@@ -1,0 +1,6 @@
+apiVersion: v2
+name: securefin-app
+description: Helm chart for the SecureFin fintech platform application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

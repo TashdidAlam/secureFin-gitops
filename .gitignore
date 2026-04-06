@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+
+# Helm dependency charts
+charts/

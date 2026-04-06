@@ -1,0 +1,47 @@
+name: Validate Helm Charts
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - staging
+      - production
+
+jobs:
+  helm-lint-validate:
+    name: Lint and Validate Helm Charts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: "3.14.x"
+
+      - name: Helm lint
+        run: helm lint base/securefin-app
+
+      - name: Helm template dry-run (dev)
+        run: |
+          helm template securefin-dev base/securefin-app \
+            --namespace dev \
+            --values environments/dev/values.yaml \
+            --debug
+
+      - name: Helm template dry-run (staging)
+        run: |
+          helm template securefin-staging base/securefin-app \
+            --namespace staging \
+            --values environments/staging/values.yaml \
+            --debug
+
+      - name: Helm template dry-run (production)
+        run: |
+          helm template securefin-production base/securefin-app \
+            --namespace production \
+            --values environments/production/values.yaml \
+            --debug
