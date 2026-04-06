@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: securefin-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: dev
+            branch: dev
+          - env: staging
+            namespace: staging
+            branch: staging
+          - env: production
+            namespace: production
+            branch: production
+  template:
+    metadata:
+      name: "securefin-{{env}}"
+      labels:
+        app.kubernetes.io/name: securefin-app
+        app.kubernetes.io/instance: "securefin-{{env}}"
+        environment: "{{env}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/TashdidAlam/secureFin-gitops
+        targetRevision: "{{branch}}"
+        path: base/securefin-app
+        helm:
+          valueFiles:
+            - "../../environments/{{env}}/values.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

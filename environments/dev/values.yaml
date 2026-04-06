@@ -1,0 +1,9 @@
+image:
+  tag: "1.0.0"
+
+replicaCount: 1
+
+logLevel: debug
+
+autoscaling:
+  enabled: false
